@@ -6,10 +6,10 @@ package magic.com.gamechat.define;
  * Created by Chris.Wu on 2016/10/21.
  */
 public class Constants {
-    //    public static final String SERVER_URL = "http://192.168.0.10:3000";
-    public static String SERVER_URL = "http://172.18.2.42:81";
+//        public static final String SERVER_URL = "http://192.168.0.10:3000";
+//    public static String SERVER_URL = "http://172.18.2.42:81";
 //public static final String SERVER_URL = "http://172.18.2.42:3000";
-//public static final String SERVER_URL = "http://54.249.42.33:81";
+public static final String SERVER_URL = "http://54.249.42.33:3000";
 
     //socket
     public static final String CHAT_NAMESPACE_SOCKET = "/chat";
@@ -143,18 +143,11 @@ public class Constants {
 
 
     //rest api
-    public static String READ_PROJECT_LIST_REST_API = SERVER_URL + "/WADashboard/api/dashboard/v1/mainframes/readProjectList";
-    public static String GET_WEBACCESS_PROJECT_LIST_API = SERVER_URL + "/WADashboard/api/dashboard/v6/waConfig/getWebAccessProjectList";
-//    public static final String READ_PROJECT_LIST_REST_API = SERVER_URL + "/cookie";
-    public static String GET_DASHBOARD_TOKEN_REST_API = SERVER_URL + "/WADashboard/api/dashboard/v6/auth/getToken";
-    public static String SAVE_MOBILE_INFO_REST_API = SERVER_URL +"/WADashboard/api/dashboard/v1/mobile/saveMobileInfo";
-    public static String GET_NODE_LIST_REST_API = SERVER_URL +"/WADashboard/api/dashboard/v1/tagAjaxAction/getNodeList";
-    public static String ALARM_ACK_ALL_REST_API = SERVER_URL +"/WADashboard/api/dashboard/v1/tagAjaxAction/alarmAckAll";
-    ///WADashboard/api/dashboard/v1/mainframes/readProjectList
+    public static String USER_LOGIN_REST_API = SERVER_URL + "/user/login";
 
-
-
-
+    //error
+    public static String INTERNET_ERROR = "網路狀態不佳";
+    public static String USERNAME_PASSWORD_ERROR = "帳號或密碼錯誤請重新嘗試";
 
 
 }

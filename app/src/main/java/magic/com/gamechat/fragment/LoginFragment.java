@@ -48,27 +48,23 @@ public class LoginFragment extends ControlFragment {
         factory = new Factory();
         controlActivity = getActivity();
         httpClient = factory.createHttpClient();
-        chatFragment=factory.createChatFragment();
+        chatFragment = factory.createChatFragment();
         inputAccount = (EditText) view.findViewById(R.id.input_username);
         inputPassword = (EditText) view.findViewById(R.id.input_password);
         loginOrLogout = (Button) view.findViewById(R.id.login_or_login_button);
-        username=controlModel.getLastUsername();
-        password=controlModel.getLastPassword();
+        username = controlModel.getLastUsername();
+        password = controlModel.getLastPassword();
     }
 
     private void setListener() {
         buttonClick();
     }
 
-    private void autoLogin()
-    {
-        if(controlModel.isLogin())
-        {
+    private void autoLogin() {
+        if (controlModel.isLogin()) {
             controlModel.toastString("現在開始嘗試自動登入");
-            loginSuccess();
-        }
-        else
-        {
+            loginRequest();
+        } else {
             controlModel.toastString("請手動登入");
         }
     }
@@ -78,32 +74,25 @@ public class LoginFragment extends ControlFragment {
             @Override
             public void onClick(View arg0) {
                 username = inputAccount.getText().toString();
-                 password = inputPassword.getText().toString();
-
-
-
+                password = inputPassword.getText().toString();
                 controlModel.toastString("帳號   " + username + "   密碼  " + password);
-//                controlModel.logSystemInfoDB();
-                loginSuccess();
+                loginRequest();
             }
         });
     }
 
-    private void loginRequest(String account, String password) {
-
+    private void loginRequest() {
+        httpClient.login(username, password, this);
     }
 
     public void loginResponse(String receiveMessage) {
-
-    }
-
-    private void loginSuccess()
-    {
-        Log.d("debug","username    " +username      );
-        Log.d("debug","password    " +password      );
-        controlModel.saveLoginAccount(username,password);
-        controlModel.changeFragment(getFragmentManager(), R.id.content_main, chatFragment);
-
+        Log.d("debug", " loginResponse    receiveMessage    " + receiveMessage);
+        if (controlModel.getHttpResult(receiveMessage)) {
+            controlModel.saveLoginAccount(username, password);
+            controlModel.changeFragment(getFragmentManager(), R.id.content_main, chatFragment);
+        } else {
+            controlModel.toastString(Constants.USERNAME_PASSWORD_ERROR);
+        }
     }
 
 }

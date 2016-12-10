@@ -18,4 +18,8 @@ public class ControlFragment extends Fragment {
         model.toastString("ControlFragment  setControlModel(Model model) ");
     }
 
+    public Model getControlModel() {
+        return controlModel;
+    }
+
 }

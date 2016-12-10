@@ -12,6 +12,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import magic.com.gamechat.define.Constants;
+import magic.com.gamechat.fragment.LoginFragment;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Cookie;
@@ -32,71 +33,91 @@ public class HttpClient {
     private String serverToken;
 
     public HttpClient() {
-//        okHttpClient = new OkHttpClient();
-        serverToken= Constants.ENPTY_STRING;
+        serverToken = Constants.ENPTY_STRING;
         createOkHttpClient();
     }
 
     public HttpClient(String serverToken) {
         okHttpClient = new OkHttpClient();
-        this.serverToken=serverToken;
+        this.serverToken = serverToken;
         createOkHttpClient();
     }
 
-    public void setServerToken(String serverToken)
-    {
-        this.serverToken=serverToken;
+    public void setServerToken(String serverToken) {
+        this.serverToken = serverToken;
     }
 
-    public String getServerToken()
-    {
+    public String getServerToken() {
         return serverToken;
     }
 
-    public void createOkHttpClient()
-    {
+    public void createOkHttpClient() {
         okHttpClient = new OkHttpClient.Builder()
                 .cookieJar(new CookieJar() {
                     private final HashMap<HttpUrl, List<Cookie>> cookieStore = new HashMap<>();
 
                     @Override
                     public void saveFromResponse(HttpUrl url, List<Cookie> cookies) {
-//                        Log.d("okhttp","saveFromResponse");
-//                        Log.d("okhttp",""+url.toString());
-//                        Log.d("okhttp",""+ cookies.toString());
-                        String cookiesString=cookies.toString();
-                        if(cookiesString.indexOf(Constants.SERVER_TOKEN_TITLE)>0) {
-                            cookiesString = cookiesString.substring(cookiesString.indexOf(Constants.SERVER_TOKEN_TITLE) + 4, cookiesString.indexOf(Constants.SEMICOLON));
-                            serverToken = cookiesString;
-                        }
-                        Log.d("okhttp", " :::   "+ cookiesString);
+//                        String cookiesString=cookies.toString();
+//                        if(cookiesString.indexOf(Constants.SERVER_TOKEN_TITLE)>0) {
+//                            cookiesString = cookiesString.substring(cookiesString.indexOf(Constants.SERVER_TOKEN_TITLE) + 4, cookiesString.indexOf(Constants.SEMICOLON));
+//                            serverToken = cookiesString;
+//                        }
+//                        Log.d("okhttp", " :::   "+ cookiesString);
                     }
 
                     @Override
                     public List<Cookie> loadForRequest(HttpUrl url) {
                         List<Cookie> cookies = cookieStore.get(url.host());
-//                        Log.d("okhttp","loadForRequest");
-//                        Log.d("okhttp",""+ url.toString());
                         return cookies != null ? cookies : new ArrayList<Cookie>();
                     }
                 })
                 .build();
     }
 
-    public OkHttpClient getClient()
-    {
+    public OkHttpClient getClient() {
         return okHttpClient;
     }
 
-    public Call getCall(Request request)
-    {
+    public Call getCall(Request request) {
         return okHttpClient.newCall(request);
     }
 
-    public void alarmAck()
-    {
+    public void login(final String username, final String password, final LoginFragment loginFragment) {
+        RequestBody requestBody = new FormBody.Builder()
+                .add(Constants.USERNAME, username)
+                .add(Constants.PASSWORD, password)
+                .build();
+        Request request = new Request.Builder()
+                .url(Constants.USER_LOGIN_REST_API)
+                .post(requestBody)
+                .build();
+        Call call = okHttpClient.newCall(request);
+        call.enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                Log.d("http", "http rest api  login  fail         ");
+                loginFragment.getActivity().runOnUiThread(new Runnable() {
+                    //  @Override
+                    public void run() {
+                        loginFragment.getControlModel().toastString(Constants.INTERNET_ERROR);
+                    }
+                });
+            }
 
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                String receiveMessage = response.body().string();
+                Log.d("http", "http rest api  login  success  " + receiveMessage);
+                loginFragment.loginResponse(receiveMessage);
+            }
+        });
     }
+
+//    public void alarmAck()
+//    {
+//
+//    }
 //
 //    public void alarmAckAllList(final String projectName, final AlarmSummaryLogController alarmSummaryLogController)
 //    {

@@ -187,14 +187,14 @@ public class ChatFragment  extends ControlFragment{
                     ImageView receiveMessageViewImage = new ImageView(receiveMessageView.getContext());
                     Handler handler = new Handler();
                     receiveMessageViewIcon.setImageResource(R.drawable.female_icon);
-                    receiveMessageContent.setBackgroundColor(Color.GRAY);
-                    receiveMessageViewImage.setBackgroundColor(Color.BLUE);
+//                    receiveMessageContent.setBackgroundColor(Color.GRAY);
+//                    receiveMessageViewImage.setBackgroundColor(Color.BLUE);
                     byte[] byteArray = (byte[]) args[0];
                     Bitmap bmp = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
 
-                    receiveMessageContent.getLayoutParams().height = receiveMessageContent.getLayoutParams().width * bmp.getHeight() / bmp.getWidth();
+//                    receiveMessageContent.getLayoutParams().height = receiveMessageContent.getLayoutParams().width * bmp.getHeight() / bmp.getWidth();
                     receiveMessageViewImage.setImageBitmap(bmp);
-                    receiveMessageViewImage.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
+                    receiveMessageViewImage.setScaleType(ImageView.ScaleType.MATRIX);
                     receiveMessageContent.addView(receiveMessageViewImage);
 
 
