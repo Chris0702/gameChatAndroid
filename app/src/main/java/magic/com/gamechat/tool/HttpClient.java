@@ -84,13 +84,15 @@ public class HttpClient {
     }
 
     public void login(final String username, final String password, final LoginFragment loginFragment) {
-        RequestBody requestBody = new FormBody.Builder()
-                .add(Constants.USERNAME, username)
-                .add(Constants.PASSWORD, password)
-                .build();
+//        RequestBody requestBody = new FormBody.Builder()
+//                .add(Constants.USERNAME, username)
+//                .add(Constants.PASSWORD, password)
+//                .build();
         Request request = new Request.Builder()
                 .url(Constants.USER_LOGIN_REST_API)
-                .post(requestBody)
+                .addHeader(Constants.USERNAME, username)
+                .addHeader(Constants.PASSWORD, password)
+//                .post(requestBody)
                 .build();
         Call call = okHttpClient.newCall(request);
         call.enqueue(new Callback() {
@@ -107,9 +109,20 @@ public class HttpClient {
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-                String receiveMessage = response.body().string();
-                Log.d("http", "http rest api  login  success  " + receiveMessage);
-                loginFragment.loginResponse(receiveMessage);
+                if(response.code()==200) {
+                    String receiveMessage = response.body().string();
+                    Log.d("http", "http rest api  login  success  " + receiveMessage);
+                    loginFragment.loginResponse(receiveMessage);
+                }
+                else
+                {
+                    loginFragment.getActivity().runOnUiThread(new Runnable() {
+                        //  @Override
+                        public void run() {
+                            loginFragment.getControlModel().toastString(Constants.INTERNET_ERROR);
+                        }
+                    });
+                }
             }
         });
     }

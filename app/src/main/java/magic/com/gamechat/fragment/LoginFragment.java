@@ -91,7 +91,12 @@ public class LoginFragment extends ControlFragment {
             controlModel.saveLoginAccount(username, password);
             controlModel.changeFragment(getFragmentManager(), R.id.content_main, chatFragment);
         } else {
-            controlModel.toastString(Constants.USERNAME_PASSWORD_ERROR);
+            controlActivity.runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    controlModel.toastString(Constants.USERNAME_PASSWORD_ERROR);
+                }
+            });
         }
     }
 

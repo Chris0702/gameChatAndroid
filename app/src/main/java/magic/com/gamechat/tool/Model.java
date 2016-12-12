@@ -433,8 +433,10 @@ public class Model implements Serializable {
     public JSONObject getJsonObject(String JSONString) {
         JSONObject jsonObject = null;
         try {
-            JSONString = JSONString.substring(JSONString.indexOf(Constants.OPEN_BRACE), JSONString.lastIndexOf(Constants.CLOSE_BRACE) + 1);
-            jsonObject = new JSONObject(JSONString);
+            if(JSONString.indexOf(Constants.OPEN_BRACE)>=0) {
+                JSONString = JSONString.substring(JSONString.indexOf(Constants.OPEN_BRACE), JSONString.lastIndexOf(Constants.CLOSE_BRACE) + 1);
+                jsonObject = new JSONObject(JSONString);
+            }
         } catch (JSONException e) {
         }
         return jsonObject;
