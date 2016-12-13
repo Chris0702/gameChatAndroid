@@ -48,9 +48,13 @@ public class Model implements Serializable {
         createObj();
     }
 
-    public void toastString(String str)
-    {
-        Toast.makeText(controlActivity, str, Toast.LENGTH_SHORT).show();
+    public void toastString(final String str, final Activity activity) {
+        activity.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                Toast.makeText(activity, str, Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     public byte[] Bitmap2Bytes(Bitmap bm) {
@@ -83,8 +87,11 @@ public class Model implements Serializable {
     }
 
     private void createSystemInfo() {
-        SystemInfo systemInfo = factory.createSystemInfo();
-        dbHelper.insertSystemInfo(systemInfo);
+        SystemInfo systemInfo = getSystemInfo();
+        if (systemInfo == null) {
+            systemInfo = factory.createSystemInfo();
+            dbHelper.insertSystemInfo(systemInfo);
+        }
     }
 
     public SystemInfo getSystemInfo() {
@@ -119,7 +126,8 @@ public class Model implements Serializable {
             dbHelper.updateSystemInfoByPK(systemInfo);
         }
     }
-//
+
+    //
 //    public void saveFirebaseToken(String token) {
 //        SystemInfo systemInfo = getSystemInfo();
 //        if (systemInfo != null) {
@@ -128,11 +136,11 @@ public class Model implements Serializable {
 //        }
 //    }
 //
-    public void saveLoginAccount( String username, String password) {
-        if(username==null)
-            username=Constants.ENPTY_STRING;
-        if(password==null)
-            password=Constants.ENPTY_STRING;
+    public void saveLoginAccount(String username, String password) {
+        if (username == null)
+            username = Constants.ENPTY_STRING;
+        if (password == null)
+            password = Constants.ENPTY_STRING;
         SystemInfo systemInfo = getSystemInfo();
         if (systemInfo != null) {
             systemInfo.setAttribute(2, Constants.TRUE_STRING);
@@ -142,7 +150,8 @@ public class Model implements Serializable {
             logSystemInfoDB();
         }
     }
-//
+
+    //
 //    public void saveFunctionList(String actionLog, String alarmLog, String alarmSummary, String trend, String dashboard, String tagsInfo, String gMap) {
 //        SystemInfo systemInfo = getSystemInfo();
 //        if (systemInfo != null) {
@@ -221,7 +230,8 @@ public class Model implements Serializable {
             return Constants.ENPTY_STRING;
         }
     }
-//
+
+    //
 //    public String getLastProjectName() {
 //        if (dbHelper != null) {
 //            logSystemInfoDB();
@@ -433,7 +443,7 @@ public class Model implements Serializable {
     public JSONObject getJsonObject(String JSONString) {
         JSONObject jsonObject = null;
         try {
-            if(JSONString.indexOf(Constants.OPEN_BRACE)>=0) {
+            if (JSONString.indexOf(Constants.OPEN_BRACE) >= 0) {
                 JSONString = JSONString.substring(JSONString.indexOf(Constants.OPEN_BRACE), JSONString.lastIndexOf(Constants.CLOSE_BRACE) + 1);
                 jsonObject = new JSONObject(JSONString);
             }

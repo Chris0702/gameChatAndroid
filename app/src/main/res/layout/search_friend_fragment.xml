@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:weightSum="1">
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="星座搜尋"
+        android:id="@+id/constellation_search_button"
+        android:layout_weight="0.08"
+        android:textSize="30dp" />
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="帳號搜尋"
+        android:id="@+id/account_search_button"
+        android:layout_weight="0.08"
+        android:textSize="30dp" />
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="興趣搜尋"
+        android:id="@+id/interest_search_button"
+        android:layout_weight="0.08"
+        android:textSize="30dp" />
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="好友清單"
+        android:id="@+id/friends_list_button"
+        android:layout_weight="0.08"
+        android:textSize="30dp" />
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="登出"
+        android:id="@+id/logout_button"
+        android:layout_weight="0.08"
+        android:textSize="30dp" />
+</LinearLayout>

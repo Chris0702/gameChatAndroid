@@ -99,12 +99,7 @@ public class HttpClient {
             @Override
             public void onFailure(Call call, IOException e) {
                 Log.d("http", "http rest api  login  fail         ");
-                loginFragment.getActivity().runOnUiThread(new Runnable() {
-                    //  @Override
-                    public void run() {
-                        loginFragment.getControlModel().toastString(Constants.INTERNET_ERROR);
-                    }
-                });
+                loginFragment.getControlModel().toastString(Constants.INTERNET_ERROR, loginFragment.getActivity());
             }
 
             @Override
@@ -116,12 +111,7 @@ public class HttpClient {
                 }
                 else
                 {
-                    loginFragment.getActivity().runOnUiThread(new Runnable() {
-                        //  @Override
-                        public void run() {
-                            loginFragment.getControlModel().toastString(Constants.INTERNET_ERROR);
-                        }
-                    });
+                    loginFragment.getControlModel().toastString(Constants.INTERNET_ERROR, loginFragment.getActivity());
                 }
             }
         });

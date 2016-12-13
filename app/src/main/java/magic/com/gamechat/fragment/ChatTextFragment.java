@@ -34,7 +34,7 @@ import magic.com.gamechat.tool.SocketIO;
 /**
  * Created by DX on 2016/12/10.
  */
-public class ChatFragment  extends ControlFragment{
+public class ChatTextFragment extends ControlFragment {
 
     private Factory factory;
     private LoginFragment loginFragment;
@@ -67,9 +67,8 @@ public class ChatFragment  extends ControlFragment{
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
                 if (keyCode == KeyEvent.KEYCODE_BACK) {
-                    // handle back button
-//                    Toast.makeText(getActivity(), "這是返回鍵", Toast.LENGTH_SHORT).show();
-//                    model.changeFragment(getFragmentManager(), R.id.content_main, loginFragment);
+                    SearchFriendFragment searchFriendFragment = factory.createSearchFriendFragment();
+                    controlModel.changeFragment(getFragmentManager(), R.id.content_main, searchFriendFragment);
                     return true;
                 }
                 return false;
@@ -134,12 +133,10 @@ public class ChatFragment  extends ControlFragment{
         });
 
 
-
-
         logoutButton.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View arg0) {
-            controlModel.setLogoutToDB();
+                controlModel.setLogoutToDB();
                 controlModel.changeFragment(getFragmentManager(), R.id.content_main, loginFragment);
             }
         });

@@ -4,8 +4,9 @@ import android.app.Activity;
 import android.app.Application;
 import android.webkit.WebView;
 
-import magic.com.gamechat.fragment.ChatFragment;
+import magic.com.gamechat.fragment.ChatTextFragment;
 import magic.com.gamechat.fragment.LoginFragment;
+import magic.com.gamechat.fragment.SearchFriendFragment;
 import magic.com.gamechat.role.SystemInfo;
 
 
@@ -19,12 +20,15 @@ public class Factory {
         return new LoginFragment();
     }
 
-    public ChatFragment createChatFragment()
+    public ChatTextFragment createChatTextFragment()
     {
-        return new ChatFragment();
+        return new ChatTextFragment();
     }
 
-
+    public SearchFriendFragment createSearchFriendFragment()
+    {
+        return new SearchFriendFragment();
+    }
 //    public User createUser() {
 //        return new User();
 //    }

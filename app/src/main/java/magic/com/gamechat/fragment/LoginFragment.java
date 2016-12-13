@@ -23,10 +23,9 @@ import magic.com.gamechat.tool.Model;
  */
 public class LoginFragment extends ControlFragment {
     HttpClient httpClient;
-    ChatFragment chatFragment;
     private EditText inputAccount;
     private EditText inputPassword;
-    private Button loginOrLogout;
+    private Button loginOrSignInButton;
     String username;
     String password;
 
@@ -48,10 +47,9 @@ public class LoginFragment extends ControlFragment {
         factory = new Factory();
         controlActivity = getActivity();
         httpClient = factory.createHttpClient();
-        chatFragment = factory.createChatFragment();
         inputAccount = (EditText) view.findViewById(R.id.input_username);
         inputPassword = (EditText) view.findViewById(R.id.input_password);
-        loginOrLogout = (Button) view.findViewById(R.id.login_or_login_button);
+        loginOrSignInButton = (Button) view.findViewById(R.id.login_or_signIn_button);
         username = controlModel.getLastUsername();
         password = controlModel.getLastPassword();
     }
@@ -62,42 +60,57 @@ public class LoginFragment extends ControlFragment {
 
     private void autoLogin() {
         if (controlModel.isLogin()) {
-            controlModel.toastString("現在開始嘗試自動登入");
+            controlModel.toastString("現在開始嘗試自動登入", controlActivity);
             loginRequest();
         } else {
-            controlModel.toastString("請手動登入");
+            controlModel.toastString("請手動登入", controlActivity);
         }
     }
 
     private void buttonClick() {
-        loginOrLogout.setOnClickListener(new Button.OnClickListener() {
+        loginOrSignInButton.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View arg0) {
                 username = inputAccount.getText().toString();
                 password = inputPassword.getText().toString();
-                controlModel.toastString("帳號   " + username + "   密碼  " + password);
+                controlModel.toastString("帳號   " + username + "   密碼  " + password, controlActivity);
                 loginRequest();
             }
         });
     }
 
     private void loginRequest() {
-        httpClient.login(username, password, this);
+        if (!username.equals(Constants.ENPTY_STRING) && !password.equals(Constants.ENPTY_STRING)) {
+            httpClient.login(username, password, this);
+        } else {
+            controlModel.toastString(Constants.INPUT_ERROR_ACCOUNT, controlActivity);
+        }
     }
 
     public void loginResponse(String receiveMessage) {
         Log.d("debug", " loginResponse    receiveMessage    " + receiveMessage);
         if (controlModel.getHttpResult(receiveMessage)) {
-            controlModel.saveLoginAccount(username, password);
-            controlModel.changeFragment(getFragmentManager(), R.id.content_main, chatFragment);
+            controlModel.toastString("登入成功", controlActivity);
+            loginSuccess();
         } else {
-            controlActivity.runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    controlModel.toastString(Constants.USERNAME_PASSWORD_ERROR);
-                }
-            });
+            resolveLoginErrorResString(receiveMessage);
         }
     }
 
+    private void loginSuccess() {
+        SearchFriendFragment searchFriendFragment = factory.createSearchFriendFragment();
+        controlModel.saveLoginAccount(username, password);
+        controlModel.changeFragment(getFragmentManager(), R.id.content_main, searchFriendFragment);
+    }
+
+    private void resolveLoginErrorResString(String receiveMessage) {
+        String resString = controlModel.getJSONProtString(Constants.RES_STRING_REST_API, receiveMessage);
+        if (resString.equals(Constants.INPUT_ERROR_ACCOUNT_RES_STRING)) {
+            controlModel.toastString(Constants.INPUT_ERROR_ACCOUNT, controlActivity);
+        } else if (resString.equals(Constants.USERNAME_ERROR_ACCOUNT_RES_STRING)) {
+            controlModel.toastString(Constants.USERNAME_ERROR_ACCOUNT, controlActivity);
+        } else if (resString.equals(Constants.PASSWORD_ERROR_ACCOUNT_RES_STRING)) {
+            controlModel.toastString(Constants.PASSWORD_ERROR_ACCOUNT, controlActivity);
+        }
+    }
 }

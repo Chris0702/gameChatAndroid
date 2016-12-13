@@ -138,9 +138,10 @@ public static final String SERVER_URL = "http://54.249.42.33:3000";
 
 
 
-    //
-
-
+    //resString
+    public static String INPUT_ERROR_ACCOUNT_RES_STRING = "input error";
+    public static String USERNAME_ERROR_ACCOUNT_RES_STRING = "username error";
+    public static String PASSWORD_ERROR_ACCOUNT_RES_STRING = "password error";
 
     //rest api
     public static String USER_LOGIN_REST_API = SERVER_URL + "/user/login";
@@ -148,6 +149,10 @@ public static final String SERVER_URL = "http://54.249.42.33:3000";
     //error
     public static String INTERNET_ERROR = "網路狀態不佳";
     public static String USERNAME_PASSWORD_ERROR = "帳號或密碼錯誤請重新嘗試";
+    public static String INPUT_ERROR_ACCOUNT = "帳號或密碼不能為空";
+    public static String USERNAME_ERROR_ACCOUNT = "帳號不存在";
+    public static String PASSWORD_ERROR_ACCOUNT = "密碼錯誤";
+    public static String SERVER_ERROR_ACCOUNT = "伺服器讀取資料錯誤請重新嘗試";
 
 
 }
