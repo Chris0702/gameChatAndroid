@@ -74,7 +74,11 @@ public class LoginFragment extends ControlFragment {
                 username = inputAccount.getText().toString();
                 password = inputPassword.getText().toString();
                 controlModel.toastString("帳號   " + username + "   密碼  " + password, controlActivity);
-                loginRequest();
+                if (controlModel.isEngOrNum(username) && controlModel.isEngOrNum(password)) {
+                    loginRequest();
+                } else {
+                    controlModel.toastString(Constants. USERNAME_PASSWORD_ENGLISH_NUMBER_ERROR_ACCOUNT, controlActivity);
+                }
             }
         });
     }

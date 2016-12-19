@@ -151,6 +151,14 @@ public class Model implements Serializable {
         }
     }
 
+    public boolean isEngOrNum(String str) {
+        if (str.matches("[a-zA-Z0-9|\\.]*")) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     //
 //    public void saveFunctionList(String actionLog, String alarmLog, String alarmSummary, String trend, String dashboard, String tagsInfo, String gMap) {
 //        SystemInfo systemInfo = getSystemInfo();

@@ -152,6 +152,7 @@ public static final String SERVER_URL = "http://54.249.42.33:3000";
     public static String INPUT_ERROR_ACCOUNT = "帳號或密碼不能為空";
     public static String USERNAME_ERROR_ACCOUNT = "帳號不存在";
     public static String PASSWORD_ERROR_ACCOUNT = "密碼錯誤";
+    public static String USERNAME_PASSWORD_ENGLISH_NUMBER_ERROR_ACCOUNT = "帳號或密碼只能輸入英文和數字";
     public static String SERVER_ERROR_ACCOUNT = "伺服器讀取資料錯誤請重新嘗試";
 
 
