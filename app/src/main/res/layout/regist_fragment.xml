@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.percent.PercentRelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_widthPercent="70%"
+        app:layout_heightPercent="50%"
+        app:layout_marginTopPercent="6.7%"
+        android:background="#89d5ff"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/imageView" />
+
+    <LinearLayout
+        android:id="@+id/ll_sex"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_widthPercent="68%"
+        app:layout_heightPercent="5%"
+        app:layout_marginTopPercent="6.7%"
+        android:background="#f589ff"
+        android:orientation="horizontal"
+        android:layout_below="@+id/imageView"
+        android:layout_alignLeft="@+id/ll_hob"
+        android:layout_marginTop="32dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="性別："
+            android:textSize="18dp"   />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@null"
+            android:textSize="18dp"/>
+            <!--android:hint="性別！" /-->
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_hob"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_widthPercent="68%"
+        app:layout_heightPercent="5%"
+        app:layout_marginTopPercent="2.25%"
+        android:background="#f589ff"
+        android:orientation="horizontal"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/ll_sex">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="興趣："
+            android:textSize="18dp"   />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@null"
+            android:textSize="18dp"/>
+            <!--android:hint="興趣！" /-->
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/ll_star"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_widthPercent="68%"
+        app:layout_heightPercent="5%"
+        app:layout_marginTopPercent="2.25%"
+        android:background="#f589ff"
+        android:orientation="horizontal"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/ll_hob">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="星座："
+            android:textSize="18dp"   />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@null"
+            android:textSize="18dp" />
+            <!--android:hint="星座！" /-->
+    </LinearLayout>
+</>
